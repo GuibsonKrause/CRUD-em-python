@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Agenda{% endblock %}
+
+{% block header_actions %}
+  <a class="button" href="{{ url_for("create_contact") }}">Novo contato</a>
+{% endblock %}
+
+{% block content %}
+  {% if contacts %}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Acoes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contact in contacts %}
+          <tr>
+            <td>{{ contact.id }}</td>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.phone }}</td>
+            <td>
+              <a class="button secondary" href="{{ url_for("edit_contact", contact_id=contact.id) }}">Editar</a>
+              <form method="post" action="{{ url_for("delete_contact", contact_id=contact.id) }}" style="display:inline" onsubmit="return confirm('Remover {{ contact.name }}?');">
+                <input type="submit" value="Excluir" />
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Nenhum contato cadastrado.</p>
+  {% endif %}
+{% endblock %}
