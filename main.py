@@ -2,6 +2,8 @@ from pathlib import Path
 
 from crud_app.cli import run_cli
 
+#teste
+
 
 def main() -> None:
     data_file = Path(__file__).with_name("data.txt")
